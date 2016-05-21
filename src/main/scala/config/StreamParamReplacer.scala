@@ -50,10 +50,15 @@ trait PropertyResolver extends ParamResolver {
 
 object PropertyResolver {
   def apply(javaProps: Properties): Map[String,String] = {
+    apply(javaProps.asScala.toMap)
+  }
+
+  def apply(props: Map[String, String]): Map[String, String] = {
     val resolver = new PropertyResolver {
-      override val properties: Properties = javaProps
+      override val properties: Properties = new Properties()
     }
-    javaProps.asScala.map{case (k,v) => k->resolver.resolve(k, Map())}.toMap
+    resolver.properties.putAll(props.asJava)
+    props.map{case (k,v) => k->resolver.resolve(k, Map())}.toMap
   }
 }
 
