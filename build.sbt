@@ -1,6 +1,6 @@
 name := "ConfigurationUtil"
 
-version := "1.0"
+version := "1.0.1"
 
 organization := "home"
 
