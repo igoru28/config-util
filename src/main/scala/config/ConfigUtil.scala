@@ -12,17 +12,18 @@ import scala.util.matching.Regex
 /**
  * Author igor on 29.01.16.
  */
-case class ApplicationPropertiesTemplate(name: String, config: Map[String, ParamReplacer])
+case class ApplicationPropertiesTemplate(name: String, config: Map[String, ParamReplacer], binaries: Seq[String])
 
 object ConfigUtil {
 
   lazy val app1 = ApplicationPropertiesTemplate("app1", Map(
     "config.yaml" -> PlainStringReplacer,
     "subdir/job.properties" -> PropertiesReplacer
-  ))
+  ), Vector("app.jar"))
   lazy val springBootWebApp = ApplicationPropertiesTemplate("app2", Map(
     "ext.properties" -> PropertiesReplacer
-  ))
+  ),
+   Vector("app.jar"))
   val paramRegex = "(?<=\\$\\{)(.*?)(?=\\})".r
   val environments = List("env1", "env2", "env3")
   val defaultValues = Map(
